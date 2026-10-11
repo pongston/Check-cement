@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>แดชบอร์ดสต๊อกปูนแดง | TPI Concrete หนองน้ำขุ่น 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#12263F; --navy2:#1C3658; --bg:#EEF1F5; --panel:#fff; --ink:#1B2430; --muted:#66727F; --line:#DDE3EA;
+  --red:#C23A2E; --redlt:#E8A199; --teal:#1F8A8A; --blue:#2F5D9E; --amber:#D98E04; --slate:#8794A3;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:'Noto Sans Thai',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.6;font-variant-numeric:tabular-nums}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.app{display:grid;grid-template-columns:248px minmax(0,1fr);min-height:100vh}
+
+/* sidebar */
+.side{background:var(--navy);color:#C5D0DF;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;padding:22px 14px 16px;z-index:30}
+.brand{display:flex;gap:12px;align-items:center;padding:0 8px 22px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:16px}
+.logo{width:38px;height:38px;border-radius:8px;background:var(--red);display:grid;place-items:center;flex:none}
+.brand b{display:block;color:#fff;font-size:16px;font-weight:600;line-height:1.25}
+.brand span{font-size:12.5px;color:#9FB0C6}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav button{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:none;border:0;border-radius:8px;padding:10px 12px;color:#C5D0DF;cursor:pointer;position:relative;font-size:14.5px}
+.nav button:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav button[aria-current="page"]{background:rgba(255,255,255,.12);color:#fff;font-weight:500}
+.nav button[aria-current="page"]::before{content:"";position:absolute;left:-14px;top:8px;bottom:8px;width:4px;border-radius:0 3px 3px 0;background:var(--red)}
+.nav svg{width:19px;height:19px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.side-foot{margin-top:auto;padding:14px 8px 0;border-top:1px solid rgba(255,255,255,.1);font-size:12.5px;color:#8FA2BB;line-height:1.5}
+.scrim{display:none}
+
+/* topbar */
+.top{background:#fff;border-bottom:1px solid var(--line);padding:14px 28px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;position:sticky;top:0;z-index:20}
+.burger{display:none;background:none;border:1px solid var(--line);border-radius:6px;width:40px;height:40px;cursor:pointer}
+.burger svg{width:20px;height:20px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round}
+.ttl{flex:1 1 260px;min-width:0}
+.ttl h1{margin:0;font-size:20px;font-weight:600;line-height:1.3}
+.ttl p{margin:0;color:var(--muted);font-size:13.5px}
+.ctrl{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ctrl label{font-size:13px;color:var(--muted)}
+select,.num{border:1px solid var(--line);background:#fff;border-radius:6px;padding:6px 10px;min-height:36px}
+.btn{border:1px solid var(--line);background:#fff;border-radius:6px;padding:6px 14px;min-height:36px;cursor:pointer;font-size:14px}
+.btn:hover{background:#F4F6F9}
+.btn.pri{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn.pri:hover{background:var(--navy2)}
+
+/* content */
+.view{padding:24px 28px 56px;max-width:1320px}
+.view:focus{outline:none}
+.panel{background:#fff;border:1px solid var(--line);border-radius:6px;padding:18px 20px;min-width:0}
+.panel h2{margin:0 0 2px;font-size:15.5px;font-weight:600}
+.panel .sub{margin:0 0 14px;color:var(--muted);font-size:13px}
+.lead{border-left:4px solid var(--red);padding:16px 20px;margin-bottom:16px}
+.lead p{margin:0;font-size:16px;line-height:1.7}
+.lead p+p{margin-top:6px;color:#3C4856;font-size:14.5px}
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(176px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-bottom:16px}
+.metric{background:#fff;padding:15px 20px}
+.metric small{display:block;color:var(--muted);font-size:13px}
+.metric strong{display:block;font-size:27px;font-weight:600;line-height:1.3;margin-top:2px}
+.metric strong em{font-style:normal;font-size:13px;font-weight:400;color:var(--muted);margin-left:4px}
+.metric span{display:block;font-size:12.5px;color:var(--muted)}
+.g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;margin-bottom:16px}
+.c8{grid-column:span 8}.c4{grid-column:span 4}.c6{grid-column:span 6}.c12{grid-column:span 12}
+.chart{width:100%;position:relative}
+.chart svg{display:block;max-width:100%}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:#3C4856;margin:0 0 6px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.legend i.pt{border-radius:50%}
+.empty{padding:36px 12px;text-align:center;color:var(--muted)}
+
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff;margin-bottom:14px;flex-wrap:wrap}
+.seg button{border:0;background:#fff;padding:7px 16px;cursor:pointer;font-size:14px;border-right:1px solid var(--line)}
+.seg button:last-child{border-right:0}
+.seg button:hover{background:#F4F6F9}
+.seg button[aria-pressed="true"]{background:var(--navy);color:#fff}
+.bar{height:7px;background:#E6EBF1;border-radius:4px;overflow:hidden;min-width:70px}
+.bar i{display:block;height:100%;background:var(--red);border-radius:4px}
+.bar.t i{background:var(--teal)}.bar.b i{background:var(--blue)}
+
+.tscroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{font-weight:500;color:var(--muted);font-size:13px;background:#F7F9FB}
+th button{background:none;border:0;cursor:pointer;color:inherit;font-weight:500;padding:0}
+th button:hover{color:var(--ink)}
+tbody tr:hover{background:#F9FAFC}
+tr.click{cursor:pointer}
+tfoot td{font-weight:600;background:#F7F9FB}
+td.l,th.l{text-align:left}
+.chip{display:inline-block;padding:1px 10px;border-radius:999px;font-size:12.5px;font-weight:500}
+.chip.ok{background:#DDF1EF;color:#14625F}.chip.warn{background:#FBEBC8;color:#8A5A00}.chip.bad{background:#F8DAD6;color:#8E2218}
+.chip.info{background:#DFE8F5;color:#24497F}.chip.mute{background:#E9EDF2;color:#56626F}
+
+.find{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.find:last-child{border-bottom:0}
+.find h3{margin:0;font-size:15px;font-weight:600}
+.find p{margin:0;grid-column:2;color:#3C4856;font-size:14px}
+.sug{margin:0;padding-left:20px}.sug li{margin:6px 0}
+.note{font-size:13px;color:var(--muted);margin:12px 0 0}
+.silo-row{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.silo-row:last-of-type{border-bottom:0}
+.silo-row .bar{grid-column:1/-1;margin-top:4px}
+.silo-row .cap{grid-column:1/-1;font-size:12.5px;color:var(--muted)}
+.linkbtn{background:none;border:0;color:var(--blue);cursor:pointer;padding:0;font-size:13.5px;margin-top:10px}
+.linkbtn:hover{text-decoration:underline}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+.tools .seg{margin:0}
+.stepper{display:inline-flex;align-items:center;gap:6px}
+.stepper .num{width:72px;text-align:center}
+.stepper .btn{padding:0;width:36px}
+
+.tip{position:fixed;display:none;z-index:99;background:#fff;border:1px solid var(--line);border-radius:6px;box-shadow:0 4px 18px rgba(18,38,63,.16);padding:8px 12px;font-size:13px;pointer-events:none;max-width:260px}
+.tip b.h{display:block;margin-bottom:2px}
+.tip div{white-space:nowrap}
+.tip .dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px}
+.tip .mu{color:var(--muted)}
+
+@media (max-width:1000px){
+  .c8,.c4,.c6{grid-column:span 12}
+}
+@media (max-width:860px){
+  .app{grid-template-columns:1fr}
+  .side{position:fixed;left:0;top:0;bottom:0;width:268px;transform:translateX(-100%);transition:transform .2s}
+  .side.open{transform:none}
+  .scrim.open{display:block;position:fixed;inset:0;background:rgba(10,20,35,.45);z-index:25}
+  .burger{display:grid;place-items:center}
+  .top{padding:12px 16px}
+  .view{padding:16px 14px 48px}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none}}
+@media print{
+  .side,.burger,.ctrl,.scrim,.tools,.seg{display:none!important}
+  .app{display:block}.top{position:static;border:0}
+  body{background:#fff}.panel,.strip{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side" id="side">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V9l8-5 8 5v11"/><path d="M9 20v-6h6v6"/></svg></div>
+      <div><b>TPI Concrete</b><span>สต๊อกปูนแดง</span></div>
+    </div>
+    <nav class="nav" id="nav" aria-label="เมนูหลัก">
+      <button data-go="overview"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>ภาพรวม</button>
+      <button data-go="usage"><svg viewBox="0 0 24 24"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>การเบิกใช้</button>
+      <button data-go="receipts"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 21h16"/></svg>การรับเข้า</button>
+      <button data-go="silos"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></svg>ไซโลปูน</button>
+      <button data-go="variance"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>ผลต่างและการตรวจสอบ</button>
+      <button data-go="daily"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg>ข้อมูลรายวัน</button>
+      <button data-go="insights"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg>ข้อสังเกตและข้อเสนอ</button>
+    </nav>
+    <div class="side-foot">หน่วยผลิต หนองน้ำขุ่น 1<br>รายงานเดือน มีนาคม 2569<br>แหล่งข้อมูล: สม_ดงาน1.xlsx</div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <div class="main">
+    <header class="top">
+      <button class="burger" id="burger" aria-label="เปิดเมนู"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      <div class="ttl"><h1 id="ptitle"></h1><p id="pdesc"></p></div>
+      <div class="ctrl">
+        <label for="from">ช่วงวันที่</label>
+        <select id="from" aria-label="เริ่มวันที่"></select>
+        <label for="to">ถึง</label>
+        <select id="to" aria-label="ถึงวันที่"></select>
+        <button class="btn" id="reset">ทั้งหมด</button>
+        <button class="btn" id="print">พิมพ์</button>
+        <button class="btn pri" id="csv">ส่งออก CSV</button>
+      </div>
+    </header>
+    <main class="view" id="view" tabindex="-1"></main>
+  </div>
+</div>
+<div class="tip" id="tip"></div>
+
+<script>
+(function(){
+'use strict';
+const DATA=[{"d": 1, "main": {"open": 192.508, "in": 0.0, "out": 6.013, "bal": 186.495, "act": 164.0}, "s2": {"open": 75.0, "in": 0.0, "out": 0.0, "bal": 75.0, "act": 75.0}, "s3": {"open": 100.0, "in": 0.0, "out": 6.013, "bal": 93.987, "act": 88.0}}, {"d": 2, "main": {"open": 186.495, "in": 0.0, "out": 4.865, "bal": 181.63, "act": 162.0}, "s2": {"open": 75.0, "in": 0.0, "out": 0.0, "bal": 75.0, "act": 75.0}, "s3": {"open": 88.0, "in": 0.0, "out": 4.865, "bal": 83.135, "act": 87.0}}, {"d": 3, "main": {"open": 181.63, "in": 0.0, "out": 6.016, "bal": 175.614, "act": 147.0}, "s2": {"open": 75.0, "in": 0.0, "out": 0.0, "bal": 75.0, "act": 75.0}, "s3": {"open": 87.0, "in": 0.0, "out": 6.016, "bal": 80.984, "act": 72.0}}, {"d": 4, "main": {"open": 175.614, "in": 0.0, "out": 0.0, "bal": 175.614, "act": 147.0}, "s2": {"open": 75.0, "in": 0.0, "out": 0.0, "bal": 75.0, "act": 75.0}, "s3": {"open": 72.0, "in": 0.0, "out": 0.0, "bal": 72.0, "act": 72.0}}, {"d": 5, "main": {"open": 175.614, "in": 0.0, "out": 4.044, "bal": 171.57, "act": 175.0}, "s2": {"open": 75.0, "in": 0.0, "out": 0.0, "bal": 75.0, "act": 75.0}, "s3": {"open": 72.0, "in": 0.0, "out": 4.044, "bal": 67.956, "act": 64.0}}, {"d": 6, "main": {"open": 171.57, "in": 0.0, "out": 4.812, "bal": 166.758, "act": 139.0}, "s2": {"open": 75.0, "in": 0.0, "out": 0.0, "bal": 75.0, "act": 75.0}, "s3": {"open": 64.0, "in": 0.0, "out": 4.812, "bal": 59.188, "act": 60.0}}, {"d": 7, "main": {"open": 166.758, "in": 33.38, "out": 6.831, "bal": 193.307, "act": null}, "s2": {"open": 75.0, "in": 0.0, "out": 0.0, "bal": 75.0, "act": 75.0}, "s3": {"open": 60.0, "in": 33.38, "out": 6.831, "bal": 86.549, "act": 90.0}}, {"d": 8, "main": {"open": 193.307, "in": 0.0, "out": 44.124, "bal": 149.183, "act": null}, "s2": {"open": 75.0, "in": 0.0, "out": 0.0, "bal": 75.0, "act": 75.0}, "s3": {"open": 90.0, "in": 0, "out": 44.124, "bal": 45.876, "act": 40.0}}, {"d": 9, "main": {"open": 149.183, "in": 32.98, "out": 21.009, "bal": 161.154, "act": 133.0}, "s2": {"open": 75.0, "in": 0.0, "out": 0.0, "bal": 75.0, "act": 75.0}, "s3": {"open": 40.0, "in": 32.98, "out": 21.009, "bal": 51.971, "act": 58.0}}, {"d": 10, "main": {"open": 161.154, "in": 0.0, "out": 0.0, "bal": 161.154, "act": null}, "s2": {"open": 75.0, "in": 0.0, "out": 0.0, "bal": 75.0, "act": 75.0}, "s3": {"open": 58.0, "in": 0, "out": 0.0, "bal": 58.0, "act": null}}];
+const MON='มี.ค.';
+const SILO={main:'ภาพรวม',s2:'ไซโล S2',s3:'ไซโล S3'};
+const C={red:'#C23A2E',redlt:'#E8A199',teal:'#1F8A8A',blue:'#2F5D9E',amber:'#D98E04',slate:'#8794A3'};
+const MAXD=DATA[DATA.length-1].d, MIND=DATA[0].d;
+const state={page:'overview',from:MIND,to:MAXD,silo:'main',dsilo:'main',umode:'daily',tol:10,sk:'d',sd:1,q:''};
+
+/* ---------- helpers ---------- */
+const $=s=>document.querySelector(s);
+const fmt=(n,d=2)=>(n==null||isNaN(n))?'–':Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+const dl=d=>d+' '+MON;
+const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
+const rows=()=>DATA.filter(r=>r.d>=state.from&&r.d<=state.to);
+const sum=(rs,k,f)=>rs.reduce((a,r)=>a+(r[k][f]||0),0);
+const rnd=v=>Math.round(v*1000)/1000;
+const diffs=(k,rs)=>rs.filter(r=>r[k].act!=null).map(r=>({d:r.d,book:r[k].bal,act:r[k].act,v:rnd(r[k].bal-r[k].act)}));
+const cross=rs=>rs.filter(r=>r.main.act!=null&&r.s2.act!=null&&r.s3.act!=null).map(r=>({d:r.d,main:r.main.act,sub:r.s2.act+r.s3.act,v:rnd(r.main.act-(r.s2.act+r.s3.act))}));
+const lastAct=(k,rs)=>{for(let i=rs.length-1;i>=0;i--)if(rs[i][k].act!=null)return{d:rs[i].d,v:rs[i][k].act};return null};
+const chip=(c,t)=>`<span class="chip ${c}">${t}</span>`;
+const list=a=>a.map(x=>dl(x)).join(', ').replace(/ มี\.ค\./g,'').replace(/^/,'')+(a.length?' '+MON:'');
+const dayList=a=>a.length?('วันที่ '+a.join(', ')+' '+MON):'';
+
+const charts=[];
+let chartN=0;
+function chartBox(cfg,legend){
+  const id='ch'+(++chartN);
+  charts.push({id,cfg});
+  const lg=legend?`<div class="legend">${cfg.series.map(s=>`<span><i class="${s.kind==='point'?'pt':''}" style="background:${s.color}"></i>${s.name}</span>`).join('')}${(cfg.hline||[]).length&&cfg.hlegend?`<span><i style="background:transparent;border-top:2px dashed ${cfg.hline[0].color||C.slate};height:0;border-radius:0"></i>${cfg.hlegend}</span>`:''}</div>`:'';
+  return lg+`<div class="chart" id="${id}"></div>`;
+}
+
+/* ---------- chart engine (SVG) ---------- */
+function niceTicks(min,max,count){
+  if(min===max)max=min+1;
+  const raw=(max-min)/count,mag=Math.pow(10,Math.floor(Math.log10(raw))),nm=raw/mag;
+  const step=(nm<=1?1:nm<=2?2:nm<=5?5:10)*mag;
+  const lo=Math.floor(min/step+1e-9)*step,hi=Math.ceil(max/step-1e-9)*step,t=[];
+  for(let v=lo;v<=hi+step/2;v+=step)t.push(+v.toFixed(10));
+  t.step=step;return t;
+}
+function drawChart(el,cfg){
+  const n=cfg.labels.length;
+  if(!n){el.innerHTML='<div class="empty">ไม่มีข้อมูลในช่วงที่เลือก</div>';return}
+  const w=Math.max(el.clientWidth,300),h=cfg.height||270,m={t:14,r:14,b:38,l:54};
+  const pw=w-m.l-m.r,ph=h-m.t-m.b;
+  const hl=cfg.hline||[];
+  const vals=cfg.series.flatMap(s=>s.values).concat(hl.map(x=>x.v)).filter(v=>v!=null);
+  const hasBar=cfg.series.some(s=>s.kind==='bar');
+  let lo=vals.length?Math.min(...vals):0,hi=vals.length?Math.max(...vals):1;
+  if(hasBar||cfg.zero){lo=Math.min(lo,0);hi=Math.max(hi,0)}
+  else{const pad=(hi-lo)*.14||2;lo-=pad;hi+=pad;if(vals.every(v=>v>=0))lo=Math.max(lo,0)}
+  const tk=niceTicks(lo,hi,5);lo=tk[0];hi=tk[tk.length-1];
+  const y=v=>m.t+ph-(v-lo)/(hi-lo)*ph;
+  const band=pw/n,cx=i=>m.l+band*(i+.5);
+  const dec=tk.step<1?1:0;
+  let s=`<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${cfg.aria||'กราฟ'}">`;
+  tk.forEach(t=>{
+    s+=`<line x1="${m.l}" x2="${w-m.r}" y1="${y(t)}" y2="${y(t)}" stroke="${t===0&&lo<0?'#9AA6B3':'#E6EBF1'}" stroke-width="1"/>`;
+    s+=`<text x="${m.l-8}" y="${y(t)+4}" text-anchor="end" font-size="12" fill="#66727F">${fmt(t,dec)}</text>`;
+  });
+  const every=Math.max(1,Math.ceil(n/Math.max(1,Math.floor(pw/30))));
+  cfg.labels.forEach((l,i)=>{if(i%every===0)s+=`<text x="${cx(i)}" y="${h-20}" text-anchor="middle" font-size="12" fill="#66727F">${l}</text>`});
+  s+=`<text x="${m.l+pw/2}" y="${h-4}" text-anchor="middle" font-size="12" fill="#8794A3">${cfg.xTitle||'วันที่ (มี.ค. 2569)'}</text>`;
+  s+=`<rect class="guide" x="0" y="${m.t}" width="${band}" height="${ph}" fill="#12263F" fill-opacity=".06" style="display:none"/>`;
+  const bars=cfg.series.filter(x=>x.kind==='bar'),nb=bars.length;
+  bars.forEach((sr,bi)=>{
+    const gw=Math.min(band*.72,46*nb),bw=gw/nb;
+    sr.values.forEach((v,i)=>{
+      if(v==null)return;
+      const x=cx(i)-gw/2+bi*bw,y0=y(0),y1=y(v),top=Math.min(y0,y1),ht=Math.max(1,Math.abs(y0-y1));
+      const col=sr.colorFn?sr.colorFn(v,i):sr.color;
+      s+=`<rect x="${x+1}" y="${top}" width="${Math.max(1,bw-2)}" height="${ht}" rx="2" fill="${col}"/>`;
+    });
+  });
+  hl.forEach(x=>{
+    s+=`<line x1="${m.l}" x2="${w-m.r}" y1="${y(x.v)}" y2="${y(x.v)}" stroke="${x.color||C.slate}" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+  });
+  cfg.series.filter(x=>x.kind==='line').forEach(sr=>{
+    let d='',pen=false;
+    sr.values.forEach((v,i)=>{if(v==null){pen=false;return}d+=(pen?'L':'M')+cx(i).toFixed(1)+' '+y(v).toFixed(1);pen=true});
+    s+=`<path d="${d}" fill="none" stroke="${sr.color}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>`;
+    sr.values.forEach((v,i)=>{if(v!=null)s+=`<circle cx="${cx(i)}" cy="${y(v)}" r="3" fill="#fff" stroke="${sr.color}" stroke-width="2"/>`});
+  });
+  cfg.series.filter(x=>x.kind==='point').forEach(sr=>{
+    sr.values.forEach((v,i)=>{if(v!=null)s+=`<circle cx="${cx(i)}" cy="${y(v)}" r="5" fill="${sr.color}" stroke="#fff" stroke-width="1.5"/>`});
+  });
+  s+='</svg>';
+  el.innerHTML=s;
+  const svg=el.querySelector('svg'),guide=svg.querySelector('.guide'),tip=$('#tip');
+  const hide=()=>{guide.style.display='none';tip.style.display='none'};
+  function move(e){
+    const r=svg.getBoundingClientRect(),x=(e.clientX-r.left)*(w/r.width),i=Math.floor((x-m.l)/band);
+    if(i<0||i>=n||e.clientY<r.top||e.clientY>r.bottom){hide();return}
+    guide.setAttribute('x',m.l+band*i);guide.style.display='block';
+    let t=`<b class="h">${cfg.tipHead?cfg.tipHead(i):'วันที่ '+cfg.labels[i]+' '+MON}</b>`;
+    cfg.series.forEach(sr=>{
+      const v=sr.values[i];
+      if(v==null){if(sr.nullText)t+=`<div class="mu"><span class="dot" style="background:${sr.color}"></span>${sr.name}: ${sr.nullText}</div>`;return}
+      t+=`<div><span class="dot" style="background:${sr.color}"></span>${sr.name}: <b>${fmt(v,cfg.dec==null?2:cfg.dec)}</b> ตัน</div>`;
+    });
+    if(cfg.tipExtra)t+=cfg.tipExtra(i)||'';
+    tip.innerHTML=t;tip.style.display='block';
+    let lx=e.clientX+14;const tw=tip.offsetWidth;
+    if(lx+tw>window.innerWidth-8)lx=e.clientX-tw-14;
+    tip.style.left=Math.max(8,lx)+'px';tip.style.top=Math.max(8,e.clientY-12)+'px';
+  }
+  svg.addEventListener('pointermove',move);
+  svg.addEventListener('pointerdown',move);
+  svg.addEventListener('pointerleave',hide);
+}
+
+/* ---------- table helpers ---------- */
+const tbl=(head,body,foot)=>`<div class="tscroll"><table><thead><tr>${head}</tr></thead><tbody>${body}</tbody>${foot?`<tfoot>${foot}</tfoot>`:''}</table></div>`;
+const th=(t,l)=>`<th class="${l?'l':''}">${t}</th>`;
+const seg=(attr,cur,opts)=>`<div class="seg" role="group">${opts.map(o=>`<button data-${attr}="${o[0]}" aria-pressed="${cur===o[0]}">${o[1]}</button>`).join('')}</div>`;
+const metric=(l,v,u,sub)=>`<div class="metric"><small>${l}</small><strong>${v}${u?`<em>${u}</em>`:''}</strong>${sub?`<span>${sub}</span>`:''}</div>`;
+const none=()=>`<div class="panel"><div class="empty">ไม่มีข้อมูลในช่วงวันที่ที่เลือก ลองกดปุ่ม “ทั้งหมด” ด้านบน</div></div>`;
+
+/* ---------- pages ---------- */
+function pgOverview(){
+  const rs=rows();if(!rs.length)return none();
+  const f=rs[0],l=rs[rs.length-1];
+  const inn=sum(rs,'main','in'),out=sum(rs,'main','out'),net=l.main.bal-f.main.open;
+  const dv=diffs('main',rs),ad=dv.length?avg(dv.map(x=>x.v)):null;
+  const ao=out/rs.length,cover=ao>0?l.main.bal/ao:null;
+  const top=[...rs].filter(r=>r.main.out>0).sort((a,b)=>b.main.out-a.main.out).slice(0,3);
+  const mx=top.length?top[0].main.out:1;
+  const lead=`<section class="panel lead"><p>ณ วันที่ ${dl(l.d)} ปูนแดงคงเหลือตามบัญชี <b>${fmt(l.main.bal)} ตัน</b> ${net<0?'ลดลง':'เพิ่มขึ้น'} <b>${fmt(Math.abs(net))} ตัน</b> จากยอดยกมา เพราะ${net<0?'เบิกใช้ ('+fmt(out)+' ตัน) มากกว่ารับเข้า ('+fmt(inn)+' ตัน)':'รับเข้า ('+fmt(inn)+' ตัน) มากกว่าเบิกใช้ ('+fmt(out)+' ตัน)'}</p>${ad!=null?`<p>ยอดเคาะจริง${ad>0?'ต่ำกว่า':'สูงกว่า'}ยอดบัญชีเฉลี่ย ${fmt(Math.abs(ad),1)} ตัน จากการเคาะ ${dv.length} วัน ควรตรวจสอบสาเหตุของส่วนต่าง (ดูเมนู “ผลต่างและการตรวจสอบ”)</p>`:''}</section>`;
+  const strip=`<section class="strip">${
+    metric('คงเหลือตามบัญชี',fmt(l.main.bal),'ตัน','ณ '+dl(l.d))+
+    metric('รับเข้ารวม',fmt(inn),'ตัน',sum(rs,'main','in')>0?rs.filter(r=>r.main.in>0).length+' ครั้ง':'ไม่มีการรับเข้า')+
+    metric('เบิกใช้รวม',fmt(out),'ตัน','เฉลี่ย '+fmt(ao)+' ตัน/วัน')+
+    metric('ผลต่างเฉลี่ย (บัญชี−เคาะ)',ad==null?'–':fmt(ad,1),'ตัน','จาก '+dv.length+' วันที่เคาะ')+
+    metric('ใช้ได้อีกประมาณ',cover==null?'–':fmt(cover,1),'วัน','ที่อัตราเบิกใช้เฉลี่ย ไม่รวมรับเข้า')
+  }</section>`;
+  const c1=chartBox({labels:rs.map(r=>r.d),aria:'คงเหลือรายวัน',series:[
+    {name:'คงเหลือตามบัญชี',kind:'line',color:C.blue,values:rs.map(r=>r.main.bal)},
+    {name:'ยอดเคาะจริง',kind:'point',color:C.amber,values:rs.map(r=>r.main.act),nullText:'ไม่ได้เคาะ'}]},true);
+  const c2=chartBox({labels:rs.map(r=>r.d),aria:'รับเข้าและเบิกใช้รายวัน',series:[
+    {name:'เบิกใช้',kind:'bar',color:C.red,values:rs.map(r=>r.main.out)},
+    {name:'รับเข้า',kind:'bar',color:C.teal,values:rs.map(r=>r.main.in)}]},true);
+  const silos=['s2','s3'].map(k=>{
+    const o=f[k].open,b=l[k].bal,p=o>0?Math.max(0,Math.min(100,b/o*100)):0;
+    return `<div class="silo-row"><b>${SILO[k]}</b><span>${fmt(b)} ตัน</span><div class="bar ${k==='s2'?'t':'b'}"><i style="width:${p}%"></i></div><small class="cap">${fmt(p,0)}% ของยอดยกมา ${fmt(o)} ตัน</small></div>`;
+  }).join('');
+  return lead+strip+`
+  <div class="g">
+    <section class="panel c8"><h2>คงเหลือรายวัน</h2><p class="sub">เส้นคือยอดตามบัญชี จุดคือยอดที่เคาะนับจริง</p>${c1}</section>
+    <section class="panel c4"><h2>สถานะไซโล</h2><p class="sub">คงเหลือตามบัญชี ณ ${dl(l.d)}</p>${silos}<button class="linkbtn" data-go="silos">ดูรายละเอียดไซโล</button></section>
+  </div>
+  <div class="g">
+    <section class="panel c8"><h2>รับเข้าและเบิกใช้รายวัน</h2><p class="sub">หน่วย: ตัน</p>${c2}</section>
+    <section class="panel c4"><h2>วันที่เบิกใช้สูงสุด</h2><p class="sub">3 อันดับแรกของช่วงที่เลือก</p>${
+      top.length?top.map(r=>`<div class="silo-row"><b>${dl(r.d)}</b><span>${fmt(r.main.out)} ตัน</span><div class="bar"><i style="width:${r.main.out/mx*100}%"></i></div><small class="cap">${fmt(r.main.out/out*100,1)}% ของยอดเบิกใช้ทั้งหมด</small></div>`).join(''):'<div class="empty">ไม่มีการเบิกใช้</div>'}
+      <button class="linkbtn" data-go="usage">ดูการเบิกใช้ทั้งหมด</button></section>
+  </div>`;
+}
+
+function pgUsage(){
+  const rs=rows();if(!rs.length)return none();
+  const out=sum(rs,'main','out'),ao=out/rs.length;
+  const pk=[...rs].sort((a,b)=>b.main.out-a.main.out)[0];
+  const zero=rs.filter(r=>r.main.out===0).length;
+  let cfg;
+  if(state.umode==='daily'){
+    cfg={labels:rs.map(r=>r.d),aria:'เบิกใช้รายวัน',hline:[{v:ao,color:C.slate}],hlegend:'ค่าเฉลี่ย '+fmt(ao)+' ตัน/วัน',series:[{name:'เบิกใช้',kind:'bar',color:C.red,colorFn:(v,i)=>rs[i].d===pk.d&&pk.main.out>0?C.red:C.redlt,values:rs.map(r=>r.main.out)}]};
+  }else{
+    let c=0;cfg={labels:rs.map(r=>r.d),aria:'เบิกใช้สะสม',zero:true,series:[{name:'เบิกใช้สะสม',kind:'line',color:C.red,values:rs.map(r=>(c+=r.main.out,rnd(c)))}]};
+  }
+  const top=[...rs].filter(r=>r.main.out>0).sort((a,b)=>b.main.out-a.main.out).slice(0,5);
+  const body=top.map((r,i)=>`<tr><td>${i+1}. วันที่ ${dl(r.d)}</td><td>${fmt(r.main.out,3)}</td><td style="width:34%"><div style="display:flex;align-items:center;gap:10px"><div class="bar" style="flex:1"><i style="width:${r.main.out/out*100}%"></i></div><span style="min-width:48px">${fmt(r.main.out/out*100,1)}%</span></div></td><td>${fmt(r.main.bal,3)}</td></tr>`).join('');
+  return `<section class="strip">${
+    metric('เบิกใช้รวม',fmt(out),'ตัน',rs.length+' วัน')+
+    metric('เฉลี่ยต่อวัน',fmt(ao),'ตัน','รวมวันที่ไม่มีการเบิก')+
+    metric('สูงสุดในวันเดียว',fmt(pk.main.out),'ตัน',dl(pk.d))+
+    metric('วันที่ไม่มีการเบิก',zero,'วัน','จาก '+rs.length+' วัน')
+  }</section>
+  <section class="panel" style="margin-bottom:16px"><h2>การเบิกใช้ปูนแดง</h2><p class="sub">${state.umode==='daily'?'แท่งสีเข้มคือวันที่เบิกสูงสุด เส้นประคือค่าเฉลี่ย':'ยอดเบิกใช้สะสมนับจากวันแรกของช่วงที่เลือก'}</p>
+    ${seg('umode',state.umode,[['daily','รายวัน'],['cum','สะสม']])}${chartBox(cfg,state.umode==='daily')}</section>
+  <section class="panel"><h2>5 วันที่เบิกใช้สูงสุด</h2><p class="sub">สัดส่วนเทียบกับยอดเบิกใช้รวมของช่วงที่เลือก</p>${
+    top.length?tbl(th('วันที่',1)+th('เบิกใช้ (ตัน)')+th('สัดส่วน')+th('คงเหลือสิ้นวัน (ตัน)'),body):'<div class="empty">ไม่มีการเบิกใช้</div>'}</section>`;
+}
+
+function pgReceipts(){
+  const rs=rows();if(!rs.length)return none();
+  const ev=rs.filter(r=>r.main.in>0),inn=sum(rs,'main','in'),out=sum(rs,'main','out');
+  let a=0,b=0;
+  const cfg={labels:rs.map(r=>r.d),aria:'รับเข้าและเบิกใช้สะสม',zero:true,series:[
+    {name:'เบิกใช้สะสม',kind:'line',color:C.red,values:rs.map(r=>(a+=r.main.out,rnd(a)))},
+    {name:'รับเข้าสะสม',kind:'line',color:C.teal,values:rs.map(r=>(b+=r.main.in,rnd(b)))}]};
+  const body=ev.map(r=>`<tr><td>วันที่ ${dl(r.d)}</td><td>${fmt(r.main.in,3)}</td><td>${fmt(r.main.out,3)}</td><td>${fmt(r.main.open,3)}</td><td>${fmt(r.main.bal,3)}</td></tr>`).join('');
+  return `<section class="strip">${
+    metric('รับเข้ารวม',fmt(inn),'ตัน',ev.length+' ครั้ง')+
+    metric('เฉลี่ยต่อครั้ง',ev.length?fmt(inn/ev.length):'–','ตัน','')+
+    metric('รับเข้า เทียบ เบิกใช้',out>0?fmt(inn/out*100,0):'–','%','รับเข้า '+fmt(inn)+' / เบิกใช้ '+fmt(out)+' ตัน')+
+    metric('ส่วนต่างสุทธิ',fmt(inn-out),'ตัน',inn-out<0?'เบิกมากกว่ารับ':'รับมากกว่าเบิก')
+  }</section>
+  <section class="panel" style="margin-bottom:16px"><h2>รับเข้าสะสมเทียบเบิกใช้สะสม</h2><p class="sub">ช่องว่างระหว่างสองเส้นคือปริมาณสต๊อกที่ลดลงในช่วงที่เลือก</p>${chartBox(cfg,true)}</section>
+  <section class="panel"><h2>รายการรับเข้า</h2><p class="sub">วันที่มีการรับปูนเข้าไซโล</p>${
+    ev.length?tbl(th('วันที่',1)+th('รับเข้า (ตัน)')+th('เบิกใช้วันเดียวกัน (ตัน)')+th('ยกมา (ตัน)')+th('คงเหลือสิ้นวัน (ตัน)'),body):'<div class="empty">ไม่มีการรับเข้าในช่วงที่เลือก</div>'}</section>`;
+}
+
+function pgSilos(){
+  const rs=rows();if(!rs.length)return none();
+  const k=state.silo,f=rs[0],l=rs[rs.length-1],la=lastAct(k,rs);
+  const cfg={labels:rs.map(r=>r.d),aria:'คงเหลือ '+SILO[k],series:[
+    {name:'คงเหลือตามบัญชี',kind:'line',color:C.blue,values:rs.map(r=>r[k].bal)},
+    {name:'ยอดเคาะจริง',kind:'point',color:C.amber,values:rs.map(r=>r[k].act),nullText:'ไม่ได้เคาะ'}]};
+  const cmp=['main','s2','s3'].map(x=>{const la2=lastAct(x,rs);return `<tr class="click" data-silo="${x}"><td>${SILO[x]}${x===k?' '+chip('info','กำลังดู'):''}</td><td>${fmt(f[x].open)}</td><td>${fmt(sum(rs,x,'in'))}</td><td>${fmt(sum(rs,x,'out'))}</td><td>${fmt(l[x].bal)}</td><td>${la2?fmt(la2.v)+' <span style="color:var(--muted);font-size:12.5px">('+dl(la2.d)+')</span>':'–'}</td></tr>`}).join('');
+  return `${seg('silo',k,[['main','ภาพรวม'],['s2','ไซโล S2'],['s3','ไซโล S3']])}
+  <section class="strip">${
+    metric('ยอดยกมาต้นช่วง',fmt(f[k].open),'ตัน',dl(f.d))+
+    metric('รับเข้า',fmt(sum(rs,k,'in')),'ตัน','')+
+    metric('เบิกใช้',fmt(sum(rs,k,'out')),'ตัน','')+
+    metric('คงเหลือตามบัญชี',fmt(l[k].bal),'ตัน','ณ '+dl(l.d))+
+    metric('ยอดเคาะจริงล่าสุด',la?fmt(la.v):'–','ตัน',la?dl(la.d):'ไม่มีการเคาะ')
+  }</section>
+  <section class="panel" style="margin-bottom:16px"><h2>คงเหลือรายวัน: ${SILO[k]}</h2><p class="sub">เส้นคือยอดตามบัญชี จุดคือยอดเคาะจริง</p>${chartBox(cfg,true)}</section>
+  <section class="panel"><h2>เปรียบเทียบทุกไซโล</h2><p class="sub">คลิกแถวเพื่อสลับไปดูไซโลนั้น หน่วย: ตัน</p>${
+    tbl(th('ไซโล',1)+th('ยกมาต้นช่วง')+th('รับเข้า')+th('เบิกใช้')+th('คงเหลือตามบัญชี')+th('เคาะจริงล่าสุด'),cmp)}
+    <p class="note">“ภาพรวม” คือคอลัมน์หลักของแบบฟอร์ม (ไม่ได้ระบุชื่อไซโลในไฟล์) ส่วน S2 และ S3 มาจากคอลัมน์ย่อยของแบบฟอร์มเดียวกัน</p></section>`;
+}
+
+function pgVariance(){
+  const rs=rows();if(!rs.length)return none();
+  const tol=state.tol,dv=diffs('main',rs),cx=cross(rs);
+  const over=dv.filter(x=>Math.abs(x.v)>tol);
+  const mxd=dv.length?[...dv].sort((a,b)=>Math.abs(b.v)-Math.abs(a.v))[0]:null;
+  const cfg={labels:rs.map(r=>r.d),aria:'ผลต่างบัญชีกับเคาะจริง',dec:2,hline:[{v:tol,color:C.amber},{v:-tol,color:C.amber}],hlegend:'เกณฑ์เตือน ±'+tol+' ตัน',
+    series:[{name:'ผลต่าง (บัญชี−เคาะ)',kind:'bar',color:C.blue,colorFn:v=>Math.abs(v)>tol?C.amber:C.blue,values:rs.map(r=>r.main.act!=null?rnd(r.main.bal-r.main.act):null),nullText:'ไม่ได้เคาะ'}]};
+  const body=rs.map(r=>{
+    if(r.main.act==null)return `<tr><td>วันที่ ${dl(r.d)}</td><td>${fmt(r.main.bal,3)}</td><td>–</td><td>–</td><td class="l">${chip('mute','ไม่ได้เคาะ')}</td></tr>`;
+    const v=rnd(r.main.bal-r.main.act);
+    return `<tr><td>วันที่ ${dl(r.d)}</td><td>${fmt(r.main.bal,3)}</td><td>${fmt(r.main.act,3)}</td><td>${fmt(v,3)}</td><td class="l">${Math.abs(v)>tol?chip('warn','เกินเกณฑ์'):chip('ok','ในเกณฑ์')}</td></tr>`}).join('');
+  const cbody=cx.map(x=>`<tr><td>วันที่ ${dl(x.d)}</td><td>${fmt(x.main,0)}</td><td>${fmt(x.sub,0)}</td><td>${fmt(x.v,0)}</td><td class="l">${x.v===0?chip('ok','ตรงกัน'):Math.abs(x.v)<=1?chip('mute','ต่างเล็กน้อย'):chip('warn','ไม่ตรงกัน')}</td></tr>`).join('');
+  return `<section class="strip">${
+    metric('วันที่เคาะนับจริง',dv.length,'วัน','จาก '+rs.length+' วัน')+
+    metric('ผลต่างเฉลี่ย',dv.length?fmt(avg(dv.map(x=>x.v)),1):'–','ตัน','บัญชี − เคาะจริง')+
+    metric('ผลต่างสูงสุด',mxd?fmt(mxd.v,1):'–','ตัน',mxd?dl(mxd.d):'')+
+    metric('เกินเกณฑ์เตือน',over.length,'วัน','เกณฑ์ ±'+tol+' ตัน')
+  }</section>
+  <section class="panel" style="margin-bottom:16px"><h2>ผลต่างรายวัน: ยอดบัญชี เทียบ ยอดเคาะจริง</h2><p class="sub">ค่าบวก = ยอดบัญชีสูงกว่ายอดที่นับได้จริง วันที่ไม่ได้เคาะจะไม่แสดงแท่ง</p>
+    <div class="tools"><span>เกณฑ์เตือน (ตัน)</span><span class="stepper"><button class="btn" data-tol="-1" aria-label="ลดเกณฑ์">−</button><input class="num" id="tol" type="number" min="0" step="1" value="${tol}" aria-label="เกณฑ์เตือน ตัน"><button class="btn" data-tol="1" aria-label="เพิ่มเกณฑ์">+</button></span></div>
+    ${chartBox(cfg,true)}</section>
+  <div class="g">
+    <section class="panel c6"><h2>รายละเอียดรายวัน</h2><p class="sub">หน่วย: ตัน</p>${tbl(th('วันที่',1)+th('ตามบัญชี')+th('เคาะจริง')+th('ผลต่าง')+th('สถานะ',1),body)}</section>
+    <section class="panel c6"><h2>ตรวจความสอดคล้อง: ภาพรวม เทียบ S2 + S3</h2><p class="sub">เฉพาะวันที่มียอดเคาะครบทั้งสามคอลัมน์ หน่วย: ตัน</p>${
+      cx.length?tbl(th('วันที่',1)+th('เคาะ: ภาพรวม')+th('เคาะ: S2+S3')+th('ต่าง')+th('สถานะ',1),cbody):'<div class="empty">ไม่มีวันที่เคาะครบทั้งสามคอลัมน์</div>'}
+      <p class="note">ผลต่างสะสมตามแบบฟอร์ม: ยกมา 0.117 | เดือนนี้ 1.058 | ยกไปยังไม่ได้กรอก (ไฟล์ไม่ระบุหน่วย และไม่ตรงกับผลต่างบัญชี−เคาะจริงรายวันข้างต้น ควรยืนยันวิธีคำนวณกับผู้จัดทำ)</p></section>
+  </div>`;
+}
+
+function flat(k,rs){return rs.map(r=>{const x=r[k];return{d:r.d,open:x.open,in:x.in,out:x.out,bal:x.bal,act:x.act,diff:x.act!=null?rnd(x.bal-x.act):null}})}
+function dailyRows(){
+  let f=flat(state.dsilo,rows());
+  if(state.q.trim())f=f.filter(r=>String(r.d).includes(state.q.trim()));
+  const key=state.sk,dir=state.sd;
+  f.sort((a,b)=>{const x=a[key],y=b[key];if(x==null&&y==null)return 0;if(x==null)return 1;if(y==null)return -1;return (x-y)*dir});
+  return f;
+}
+function dailyTable(){
+  const f=dailyRows();
+  const cols=[['d','วันที่',1],['open','ยกมา'],['in','รับเข้า'],['out','เบิกใช้'],['bal','คงเหลือตามบัญชี'],['act','เคาะจริง'],['diff','ผลต่าง (บัญชี−เคาะ)']];
+  const head=cols.map(c=>`<th class="${c[2]?'l':''}"><button data-sort="${c[0]}" aria-label="เรียงตาม ${c[1]}">${c[1]}${state.sk===c[0]?(state.sd>0?' ▲':' ▼'):''}</button></th>`).join('');
+  const body=f.length?f.map(r=>`<tr><td>${dl(r.d)}</td><td>${fmt(r.open,3)}</td><td>${r.in?fmt(r.in,3):'–'}</td><td>${r.out?fmt(r.out,3):'–'}</td><td>${fmt(r.bal,3)}</td><td>${r.act!=null?fmt(r.act,3):'–'}</td><td>${r.diff!=null?fmt(r.diff,3):'–'}</td></tr>`).join(''):`<tr><td colspan="7" class="empty">ไม่พบวันที่ที่ค้นหา</td></tr>`;
+  const foot=`<tr><td>รวม ${f.length} วัน</td><td></td><td>${fmt(f.reduce((a,r)=>a+r.in,0),3)}</td><td>${fmt(f.reduce((a,r)=>a+r.out,0),3)}</td><td></td><td></td><td></td></tr>`;
+  $('#dtable').innerHTML=tbl(head,body,foot);
+}
+function pgDaily(){
+  if(!rows().length)return none();
+  return `<section class="panel"><h2>ข้อมูลรายวัน: ${SILO[state.dsilo]}</h2><p class="sub">คลิกหัวตารางเพื่อเรียงลำดับ ใช้ปุ่ม “ส่งออก CSV” ด้านบนเพื่อดาวน์โหลดข้อมูลตามไซโลและช่วงวันที่ที่เลือก</p>
+    <div class="tools">${seg('dsilo',state.dsilo,[['main','ภาพรวม'],['s2','ไซโล S2'],['s3','ไซโล S3']])}
+    <input class="num" id="q" type="search" placeholder="ค้นหาวันที่" value="${state.q}" aria-label="ค้นหาวันที่" style="width:150px"></div>
+    <div id="dtable"></div></section>`;
+}
+
+function pgInsights(){
+  const rs=rows();if(!rs.length)return none();
+  const out=sum(rs,'main','out'),inn=sum(rs,'main','in'),ao=out/rs.length,l=rs[rs.length-1];
+  const it=[];
+  if(out>0){
+    const p=[...rs].sort((a,b)=>b.main.out-a.main.out)[0],sh=p.main.out/out*100;
+    it.push([sh>=30?'warn':'info',sh>=30?'การเบิกใช้กระจุกตัวในวันเดียว':'วันที่เบิกใช้สูงสุด',`วันที่ ${dl(p.d)} เบิกใช้ ${fmt(p.main.out,3)} ตัน คิดเป็น ${fmt(sh,1)}% ของยอดเบิกใช้ทั้งช่วง และสูงกว่าค่าเฉลี่ยรายวัน ${fmt(p.main.out/ao,1)} เท่า`]);
+  }
+  const dv=diffs('main',rs);
+  if(dv.length){
+    const vs=dv.map(x=>x.v),pos=vs.filter(v=>v>0).length;
+    it.push([Math.abs(avg(vs))>state.tol?'warn':'info',`ยอดบัญชีสูงกว่ายอดเคาะจริง ${pos} จาก ${dv.length} วันที่เคาะ`,`ส่วนต่างอยู่ระหว่าง ${fmt(Math.min(...vs),1)} ถึง ${fmt(Math.max(...vs),1)} ตัน เฉลี่ย ${fmt(avg(vs),1)} ตัน หากส่วนต่างใกล้เคียงกันทุกวัน มักเป็นสัญญาณว่ายอดยกมาไม่ตรงกับของจริง มากกว่าการสูญหายรายวัน จึงควรตรวจสอบยอดยกมาและวิธีเคาะ`]);
+  }
+  const un=rs.filter(r=>r.main.act==null).map(r=>r.d);
+  if(un.length){
+    const s3=rs.filter(r=>r.main.act==null&&r.s3.act!=null).map(r=>r.d);
+    it.push(['warn',`ไม่มียอดเคาะจริงของภาพรวม ${un.length} วัน`,`${dayList(un)}${s3.length?' (ไซโล S3 มียอดเคาะในวันที่ '+s3.join(', ')+' แต่ภาพรวมไม่มี)':''} ทำให้เทียบผลต่างวันดังกล่าวไม่ได้`]);
+  }
+  const cx=cross(rs).filter(x=>Math.abs(x.v)>1);
+  if(cx.length)it.push(['warn','ยอดเคาะจริงของภาพรวมไม่ตรงกับ S2 + S3',`${dayList(cx.map(x=>x.d))} ต่างกัน ${cx.map(x=>fmt(Math.abs(x.v),0)).join(', ')} ตัน ตามลำดับ`]);
+  if(sum(rs,'s2','in')===0&&sum(rs,'s2','out')===0)it.push(['info','ไซโล S2 ไม่มีการเคลื่อนไหว',`ไม่มีการรับหรือเบิกในช่วงที่เลือก ยอดคงที่ ${fmt(l.s2.bal)} ตัน`]);
+  if(rs.every(r=>r.s3.in===r.main.in&&r.s3.out===r.main.out)&&(inn>0||out>0))it.push(['info','การรับและเบิกทั้งหมดบันทึกที่ไซโล S3','ปริมาณรับเข้าและเบิกใช้ของ S3 เท่ากับยอดภาพรวมทุกวันตามที่บันทึกในไฟล์']);
+  if(ao>0)it.push(['info',`สต๊อกที่มีใช้ได้ประมาณ ${fmt(l.main.bal/ao,1)} วัน`,`คำนวณจากยอดบัญชีล่าสุด ${fmt(l.main.bal)} ตัน หารด้วยอัตราเบิกใช้เฉลี่ย ${fmt(ao)} ตัน/วัน โดยไม่รวมการรับเข้าเพิ่ม (ค่าเฉลี่ยถูกดึงขึ้นจากวันที่เบิกสูง)`]);
+  const lastRow=DATA[DATA.length-1];
+  const inc=lastRow.main.out===0&&lastRow.main.act==null;
+  it.push(['info',`ข้อมูลมีถึงวันที่ ${dl(MAXD)} ของเดือน`,`${inc?'วันที่ '+MAXD+' ยังไม่มีการเบิกใช้และไม่มียอดเคาะ อาจยังบันทึกไม่ครบ ':''}ตัวเลขทั้งหมดในแดชบอร์ดจึงเป็นผลของช่วงที่มีข้อมูลเท่านั้น`]);
+  const tag={warn:chip('warn','ควรตรวจสอบ'),info:chip('info','ข้อมูล'),ok:chip('ok','ปกติ')};
+  return `<div class="g"><section class="panel c8"><h2>ข้อสังเกตจากข้อมูล</h2><p class="sub">สร้างอัตโนมัติจากช่วงวันที่ที่เลือก</p>${
+    it.map(x=>`<div class="find"><div>${tag[x[0]]}</div><h3>${x[1]}</h3><p>${x[2]}</p></div>`).join('')}</section>
+    <section class="panel c4"><h2>ข้อเสนอเพื่อพิจารณา</h2><p class="sub">แนวทางทั่วไป ผู้บริหารควรประเมินตามบริบทหน้างาน</p>
+    <ol class="sug"><li>ยืนยันยอดยกมาต้นเดือนด้วยการเคาะนับจริง แล้วปรับยอดบัญชีให้ตรงกัน</li><li>กำหนดให้เคาะนับจริงทุกวัน เพราะบางวันไม่มียอดเคาะ ทำให้ตรวจผลต่างไม่ได้</li><li>ตรวจสอบเอกสารเบิกใช้ของวันที่เบิกสูงสุด ว่าปริมาณสอดคล้องกับงานที่ผลิต</li><li>ยืนยันวิธีคำนวณ “ผลต่างสะสม” ในแบบฟอร์มให้ตรงกับผลต่างรายวัน</li><li>วางแผนสั่งซื้อล่วงหน้าจากจำนวนวันที่สต๊อกใช้ได้</li></ol></section></div>`;
+}
+
+const PAGES={
+  overview:['ภาพรวมสต๊อกปูนแดง','สรุปการรับเข้า การเบิกใช้ และยอดคงเหลือ หน่วยผลิตหนองน้ำขุ่น 1',pgOverview],
+  usage:['การเบิกใช้','ดูว่าวันไหนเบิกปูนมากหรือน้อย และสะสมเท่าไร',pgUsage],
+  receipts:['การรับเข้า','รายการรับปูนเข้าไซโล เทียบกับปริมาณที่เบิกใช้',pgReceipts],
+  silos:['ไซโลปูน','ยอดคงเหลือและยอดเคาะจริงแยกตามไซโล',pgSilos],
+  variance:['ผลต่างและการตรวจสอบ','เทียบยอดตามบัญชีกับยอดที่เคาะนับจริง พร้อมตรวจความสอดคล้องของข้อมูล',pgVariance],
+  daily:['ข้อมูลรายวัน','ตารางข้อมูลดิบ เรียงลำดับ ค้นหา และส่งออกได้',pgDaily],
+  insights:['ข้อสังเกตและข้อเสนอ','สิ่งที่ควรรู้จากข้อมูล และแนวทางติดตาม',pgInsights]
+};
+
+/* ---------- render / events ---------- */
+const view=$('#view');
+function render(){
+  charts.length=0;
+  const p=PAGES[state.page];
+  $('#ptitle').textContent=p[0];$('#pdesc').textContent=p[1];
+  view.innerHTML=p[2]();
+  document.querySelectorAll('#nav button').forEach(b=>b.setAttribute('aria-current',b.dataset.go===state.page?'page':'false'));
+  charts.forEach(c=>{const el=document.getElementById(c.id);if(el)drawChart(el,c.cfg)});
+  if(state.page==='daily'&&$('#dtable'))dailyTable();
+  $('#tip').style.display='none';
+}
+function go(p){
+  if(!PAGES[p])p='overview';
+  state.page=p;
+  if(location.hash!=='#'+p)history.replaceState(null,'','#'+p);
+  closeMenu();render();window.scrollTo(0,0);
+}
+function closeMenu(){$('#side').classList.remove('open');$('#scrim').classList.remove('open')}
+
+const sf=$('#from'),st=$('#to');
+function fillRange(){
+  const o=DATA.map(r=>`<option value="${r.d}">${dl(r.d)}</option>`).join('');
+  sf.innerHTML=o;st.innerHTML=o;sf.value=state.from;st.value=state.to;
+}
+sf.addEventListener('change',()=>{state.from=+sf.value;if(state.from>state.to){state.to=state.from;st.value=state.to}render()});
+st.addEventListener('change',()=>{state.to=+st.value;if(state.to<state.from){state.from=state.to;sf.value=state.from}render()});
+$('#reset').addEventListener('click',()=>{state.from=MIND;state.to=MAXD;sf.value=MIND;st.value=MAXD;render()});
+$('#print').addEventListener('click',()=>window.print());
+$('#burger').addEventListener('click',()=>{$('#side').classList.add('open');$('#scrim').classList.add('open')});
+$('#scrim').addEventListener('click',closeMenu);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
+
+$('#csv').addEventListener('click',()=>{
+  const k=state.dsilo,f=flat(k,rows());
+  const head=['วันที่','ยกมา','รับเข้า','เบิกใช้','คงเหลือตามบัญชี','เคาะจริง','ผลต่าง (บัญชี-เคาะ)'];
+  const lines=[head.join(',')].concat(f.map(r=>[r.d+' '+MON+' 2569',r.open,r.in,r.out,r.bal,r.act==null?'':r.act,r.diff==null?'':r.diff].join(',')));
+  const blob=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='ปูนแดง_'+SILO[k]+'_วันที่'+state.from+'-'+state.to+'.csv';
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+});
+
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-go],[data-silo],[data-umode],[data-dsilo],[data-sort],[data-tol]');
+  if(!t)return;
+  if(t.dataset.go){go(t.dataset.go);return}
+  if(t.dataset.silo){state.silo=t.dataset.silo;render();return}
+  if(t.dataset.umode){state.umode=t.dataset.umode;render();return}
+  if(t.dataset.dsilo){state.dsilo=t.dataset.dsilo;render();return}
+  if(t.dataset.sort){const k=t.dataset.sort;if(state.sk===k)state.sd*=-1;else{state.sk=k;state.sd=1}dailyTable();return}
+  if(t.dataset.tol){state.tol=Math.max(0,state.tol+(+t.dataset.tol));render();return}
+});
+document.addEventListener('change',e=>{
+  if(e.target.id==='tol'){const v=parseFloat(e.target.value);state.tol=isNaN(v)?10:Math.max(0,v);render()}
+});
+document.addEventListener('input',e=>{
+  if(e.target.id==='q'){state.q=e.target.value;dailyTable()}
+});
+window.addEventListener('hashchange',()=>{const p=location.hash.slice(1);if(PAGES[p]&&p!==state.page)go(p)});
+let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>charts.forEach(c=>{const el=document.getElementById(c.id);if(el)drawChart(el,c.cfg)}),120)});
+
+fillRange();
+const h0=location.hash.slice(1);
+state.page=PAGES[h0]?h0:'overview';
+render();
+})();
+</script>
+</body>
+</html>
